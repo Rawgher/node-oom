@@ -46,6 +46,18 @@ router.post("/add/", async function(req, res, next) {
   }
 });
 
+// Find customer by name
+router.get("/search/", async function(req, res, next) {
+  try {
+    const name = req.query.name;
+    const customers = await Customer.findByName(name);
+
+    return res.render("customer_list.html", { customers });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** Show a customer, given their ID. */
 
 router.get("/:id/", async function(req, res, next) {
